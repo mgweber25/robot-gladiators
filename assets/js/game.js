@@ -48,30 +48,37 @@ console.log(promptFight);
         
         enemyHealth = enemyHealth - playerAttack;
         
+        window.alert(playerName + " attacked " + enemyNames + ". " + enemyNames + " now has " + enemyHealth + " health remaining.");
         console.log(playerName + " attacked " + enemyNames + ". " + enemyNames + " now has " + enemyHealth + " health remaining.");
     
         // check enemy's health
         
         if (enemyHealth <= 0) {
             window.alert(enemyNames + " has died!");
+            console.log(enemyNames + " has died!");
         }   else {
                 window.alert(enemyNames + " still has " + enemyHealth + " health left.");
+                console.log(enemyNames + " still has " + enemyHealth + " health left.");
             }
     
         // remove player's health by subtracting the amount set in the enemyAttack variable
         
-        playerHealth = playerHealth - enemyAttack;
+        playerHealth = playerHealth - enemyAttack;     
         
+        window.alert(enemyNames + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
         console.log(enemyNames + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
     
             // check player's health
         
                 if (playerHealth <= 0) {
                     window.alert(playerName + " has died!");
+                    console.log(playerName + " has died!");
                 }   else {
                         window.alert(playerName + " still has " + playerHealth + " health left.");
-                    }
-    }
+                        console.log(playerName + " still has " + playerHealth + " health left.");
+                    } 
+                }
+
             // if player choses to skip
 
     else if (promptFight === "skip" || promptFight === "SKIP") {
@@ -91,11 +98,9 @@ console.log(promptFight);
 
     } else {
         window.alert("You need to pick a valid option. Try again!");
+        console.log("You need to pick a valid option. Try again!");
         }
 }
-
-//while(enemyHealth > 0) {
     for(var i = 0; i<3; i++) {
         fight(enemyNames[i]);
         }
-    //}
