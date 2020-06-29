@@ -19,17 +19,18 @@ console.log(enemyNames, enemyHealth, enemyAttack);
 console.log(enemyNames.length);
 
 function fight(enemyNames) {
-
-    for(var i = 0; i>enemyNames.length; i++) {
-        fight(enemyNames[i]);       
-      }
-
+    while(enemyHealth<=0) {
+        for(var i = 0; i<3; i++) {
+            console.log(enemyHealth);
+            fight(enemyNames[i]);       
+        }
+    }
 //console.log(enemyNames[i]);
 //console.log(i);
 // console.log(enemyNames[i] + " is at " + i + " index");
 
 //console.log(enemyNames[i], enemyAttack, enemyHealth);
-console.log(enemyNames.length);
+//console.log(enemyNames.length);
   
 // You can also log multiple values at once like this
 
@@ -93,6 +94,8 @@ console.log(promptFight);
         }
 }
 
-for(var i = 0; i<3; i++) {
-    fight(enemyNames[i]);
-    }
+//while(enemyHealth > 0) {
+    for(var i = 0; i<3; i++) {
+        fight(enemyNames[i]);
+        }
+    //}
