@@ -26,7 +26,7 @@ function fight(enemyNames) {
 
 //console.log(enemyNames[i]);
 //console.log(i);
-// console.log(enemyNames[i] + " is at " + i + " index");
+// console.log(enemyNames[i] + " is at " + i + " index"); 
 
 //console.log(enemyNames[i], enemyAttack, enemyHealth);
 console.log(enemyNames.length);
