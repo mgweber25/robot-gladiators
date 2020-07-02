@@ -1,3 +1,6 @@
+//Robot-Gladiator 
+//Game.JS
+
 // Game States
 // "WIN" - Player robot has defeated all enemy robots
 //    * Fight all enemy robots
@@ -8,15 +11,18 @@ var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 20;
 
-
 console.log(playerName, playerHealth, playerAttack);
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
-console.log(enemyNames, enemyHealth, enemyAttack);
-console.log(enemyNames.length);
+function robotNames();
+
+robotNames(enemyNames){
+    toString;
+    console.log(enemyNames, enemyHealth, enemyAttack);
+}
 
 function fight(enemyNames) {
     while(enemyHealth<=0) {
@@ -25,18 +31,6 @@ function fight(enemyNames) {
             fight(enemyNames[i]);       
         }
     }
-//console.log(enemyNames[i]);
-//console.log(i);
-// console.log(enemyNames[i] + " is at " + i + " index");
-
-//console.log(enemyNames[i], enemyAttack, enemyHealth);
-//console.log(enemyNames.length);
-  
-// You can also log multiple values at once like this
-
-// Alert users that they are starting the round
-    
-//window.alert("Welcome to Robot Gladiators!");
 
 var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
@@ -100,7 +94,8 @@ console.log(promptFight);
         window.alert("You need to pick a valid option. Try again!");
         console.log("You need to pick a valid option. Try again!");
         }
-}
-    for(var i = 0; i<3; i++) {
-        fight(enemyNames[i]);
-        }
+};
+
+for (var i = 0; i < 3; i++) {
+  fight(enemyNames[i]);
+};
