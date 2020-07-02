@@ -44,7 +44,7 @@ var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? En
         if (enemyHealth <= 0) {
           window.alert(pickedEnemy + " has died! Goodbye!");
           return;
-        }   else {
+        } else {
               window.alert(pickedEnemy + " still has " + enemyHealth + " health left.");
             }
     
@@ -53,8 +53,7 @@ var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? En
           if (playerHealth <= 0) {
             window.alert(playerName + " has died!  Goodbye!");
             return;
-
-        }   else {
+          } else {
                 window.alert(playerName + " still has " + playerHealth + " health left.");
             }     
     }
