@@ -13,26 +13,20 @@ var playerAttack = 20;
 
 console.log(playerName, playerHealth, playerAttack);
 
-var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
+let enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
- 
-var pickedEnemy = enemyNames[i];  
 
 // You can also log multiple values at once like this
 
 // Alert users that they are starting the round
     
-
 function fight(pickedEnemy) {
 
 var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
-
-// if player choses to fight, then fight
+    // if player choses to fight, then fight
     if (promptFight === "fight" || promptFight === "FIGHT") {
-
-      
 
         // remove enemy's health by subtracting the amount set in the playerAttack variable
         
@@ -89,5 +83,7 @@ var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? En
       };
 
     for(var i = 0; i < 3; i++) {
-      fight(enemyNames[i]);
+      var pickedEnemy = enemyNames[i];
+      fight(pickedEnemy);
     };
+
