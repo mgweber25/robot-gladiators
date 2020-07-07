@@ -9,6 +9,7 @@ var playerMoney = 10;
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
+var defeatNumber = 0;
 
 console.log(playerName, playerHealth, playerAttack);
 
@@ -19,6 +20,7 @@ var enemyAttack = 12;
 // You can also log multiple values at once like this
 
 // Alert users that they are starting the round
+
 
 
 function fight(pickedEnemy) {
@@ -58,7 +60,11 @@ var roundNumber = (i + 1);
 
             // check enemy's health
             if (enemyHealth < 1) {
+              
               window.alert(pickedEnemy + " has died! Goodbye! End of round " + roundNumber);
+              
+              defeatNumber = defeatNumber + 1;
+              
               break;
             } 
             else {
@@ -74,6 +80,7 @@ var roundNumber = (i + 1);
               
               if (enemyHealth < 1) {
                 window.alert(pickedEnemy + " has died! " + playerName + " WINS Round " + roundNumber +  ".  Goodbye!");
+                defeatNumber = defeatNumber + 1;
                 break;
               }
             }
@@ -89,20 +96,102 @@ var roundNumber = (i + 1);
               playerHealth = playerHealth - enemyAttack;
 
               window.alert(pickedEnemy + " attacked " + playerName + ". ");
+              
               window.alert(playerName + " has " + playerHealth + " health left. " + pickedEnemy + " has " + enemyHealth + " health left.");
+              
               console.log(pickedEnemy + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
               
               if (playerHealth < 1) {
+                
                 window.alert(playerName + " has died! " + playerName + " LOSES Round " + roundNumber +  ".  Goodbye!");
+                
                 break;
               }
           }
   }
 };
-                
+  
+function startGame() {
     for(var i = 0; i < 3; i++) {
-      var pickedEnemy = enemyNames[i];
-      enemyHealth = 50;
-      fight(pickedEnemy);
-    };
+      if(playerHealth > 0) {
+        window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+      
+        var pickedEnemy = enemyNames[i];
+        enemyHealth = 50;
+        fight(pickedEnemy);
+      }
 
+      else {
+        window.alert("You have lost your robot battle! Game over!");
+        ("GAME OVER! THANKS FOR PLAYING");
+        break;
+      }
+    }
+  };
+
+
+    function addPoints() {
+      return(playerMoney + (defeatNumber * 20));
+    };
+    
+
+    function shop() {
+
+      var storePrompt = window.prompt("Would you like to REFILL your health (5pts), UPGRADE your attack (20pts), or LEAVE the store?  Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+  
+      if(storePrompt === "REFILL" || storePrompt === "refill") {
+        
+        if(playerMoney > 4){
+        playerMoney = playerMoney - 5;
+        playerHealth = 50;
+  
+        window.alert(playerName + "'s health is now at 50.  PlayerMoney is now at " + playerMoney);
+        startGame();
+        }
+  
+        else {
+          window.alert("Insufficient funds to REFILL health.  Please LEAVE the store and play again");
+          startGame();
+          }
+        }
+
+        if(storePrompt === "UPGRADE" || storePrompt === "upgrade") {
+          if(playerMoney > 20) {
+            playerMoney = playerMoney - 20;
+            playerAttack = 30;
+            window.alert(playerName + "'s attack is now at 30.  Player's money is now at " + playerMoney);
+            startGame();
+            }
+            
+            else {
+              window.alert("Insufficient funds to UPGRADE attack.  Please LEAVE the store and play again or quit the game");
+              startGame();
+            }
+            
+      }
+    };
+  
+function endGame() {
+  var continueGame = window.prompt("Would you like to START the game, visit the STORE, or END the Game?");
+  
+
+  if(continueGame === "RESTART" || continueGame === "restart") {
+      startGame();
+  }
+
+  else if(continueGame === "STORE" || continueGame === "store") {
+    shop();
+  }
+
+  else {
+    startGame();
+  };
+};
+
+startGame();
+
+  
+      
+  
+  
+  
