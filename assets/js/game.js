@@ -94,35 +94,61 @@ function fight(pickedEnemy) {
             }
           }
         };
-    // if player choses to fight, then fight
+    
 
-       
+        function shop() {
 
-            // check enemy's health
-           /* if (enemyHealth < 1) {
-              
-              window.alert(pickedEnemy + " has died! Goodbye! End of round " + roundNumber);
-              
-              defeatNumber = defeatNumber + 1;
-              
-              break;
-            } 
+          var storePrompt = window.prompt("Would you like to REFILL your health (5pts), UPGRADE your attack (20pts), or LEAVE the store?  Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+      
+          if(storePrompt === "REFILL" || storePrompt === "refill") {
+            
+            if(playerMoney > 4){
+            playerMoney = playerMoney - 5;
+            playerHealth = 50;
+      
+            window.alert(playerName + "'s health is now at 50.  PlayerMoney is now at " + playerMoney);
+            endGame();
+            }
+      
             else {
-              
-              
-              if (playerHealth < 1) {
-                
-                window.alert(playerName + " has died! " + playerName + " LOSES Round " + roundNumber +  ".  Goodbye!");
-
-                endGame();
-                
+              window.alert("Insufficient funds to REFILL health.  Please LEAVE the store and play again");
+              endGame();
               }
-        }
-      };
-      */
+            }
+    
+            if(storePrompt === "UPGRADE" || storePrompt === "upgrade") {
+              if(playerMoney > 20) {
+                playerMoney = playerMoney - 20;
+                playerAttack = 30;
+                window.alert(playerName + "'s attack is now at 30.  Player's money is now at " + playerMoney);
+                endGame();
+                }
+                
+                else {
+                  window.alert("Insufficient funds to UPGRADE attack.  Please LEAVE the store and play again or quit the game");
+                  endGame();
+                }
+                
+          }
+        };
 
 
-  
+        function endGame() {
+          var continueGame = window.prompt("Would you like to start a NEW game, visit the STORE, or END the Game? (Please enter one of the following: NEW, STORE, or END)");
+          
+          if(continueGame === "NEW" || continueGame === "new") {
+              startGame();
+          }
+        
+          else if(continueGame === "STORE" || continueGame === "store") {
+            shop();
+          }
+        
+          else {
+            break;
+          }
+        };
+
     function startGame() {
       
         for(var i = 0; i < 3; i++) {
@@ -137,70 +163,13 @@ function fight(pickedEnemy) {
 
           else {
             window.alert("You have lost your robot battle! GAME OVER! THANKS FOR PLAYING");
-            break;
+            endGame();
           }
         }
       };
 
-
     function addPoints() {
       return(playerMoney + (defeatNumber * 20));
     };
-    
-
-    function shop() {
-
-      var storePrompt = window.prompt("Would you like to REFILL your health (5pts), UPGRADE your attack (20pts), or LEAVE the store?  Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
-  
-      if(storePrompt === "REFILL" || storePrompt === "refill") {
-        
-        if(playerMoney > 4){
-        playerMoney = playerMoney - 5;
-        playerHealth = 50;
-  
-        window.alert(playerName + "'s health is now at 50.  PlayerMoney is now at " + playerMoney);
-        startGame();
-        }
-  
-        else {
-          window.alert("Insufficient funds to REFILL health.  Please LEAVE the store and play again");
-          startGame();
-          }
-        }
-
-        if(storePrompt === "UPGRADE" || storePrompt === "upgrade") {
-          if(playerMoney > 20) {
-            playerMoney = playerMoney - 20;
-            playerAttack = 30;
-            window.alert(playerName + "'s attack is now at 30.  Player's money is now at " + playerMoney);
-            startGame();
-            }
-            
-            else {
-              window.alert("Insufficient funds to UPGRADE attack.  Please LEAVE the store and play again or quit the game");
-              startGame();
-            }
-            
-      }
-    };
-  
-function endGame() {
-  var continueGame = window.prompt("Would you like to START the game, visit the STORE, or END the Game?");
-  
-
-  if(continueGame === "RESTART" || continueGame === "restart") {
-      startGame();
-  }
-
-  else if(continueGame === "STORE" || continueGame === "store") {
-    shop();
-  }
-
-  else {
-    startGame();
-  }
-};
-
-//endGame();
-
+      
 startGame();
