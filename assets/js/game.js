@@ -96,15 +96,73 @@ function fight(pickedEnemy) {
         };
     
 
+        function addPoints() {
+          return(playerMoney + (defeatNumber * 20));
+        };
+          
+
+        function endGame() {
+          var continueGame = window.prompt("Would you like to start a NEW game, visit the STORE, or END the Game? (Please type one of the following: NEW, STORE, or END)");
+          
+          if (continueGame === "STORE" || continueGame === "store") {
+            shop();
+          }
+              
+          if (continueGame === "NEW" || continueGame === "new") {
+            startGame();
+        }
+          else {
+            var confirmEnd = window.confirm("Click 'OK' to END game!");
+
+            if(confirmEnd) {
+              window.alert("Thanks for playing.  Goodbye!");
+              
+             endApp();
+
+            }
+            else {
+              endGame();
+            }
+          }
+        };
+
+
+        function startGame() {
+
+          //reset player values
+    
+          playerHealth = 100;
+          playerAttack = 10;
+          playerMoney = 10;
+          
+            for(var i = 0; i < 3; i++) {
+              if(playerHealth > 0) {
+                roundNumber = (i + 1);
+               // window.alert("Welcome to Robot Gladiators! Round " + roundNumber);
+                var pickedEnemy = enemyNames[i];
+                enemyHealth = 50;
+                
+                endGame();
+                //fight(pickedEnemy);
+              }
+    
+              else {
+                window.alert("You have lost your robot battle! GAME OVER! THANKS FOR PLAYING");
+                endGame();
+              }
+            }
+          };
+
+
         function shop() {
 
-          var storePrompt = window.prompt("Would you like to REFILL your health (5pts), UPGRADE your attack (20pts), or LEAVE the store?  Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+          var storePrompt = window.prompt("Would you like to REFILL your health (5pts), UPGRADE your attack (10pts), or LEAVE the store?  Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
       
           if(storePrompt === "REFILL" || storePrompt === "refill") {
             
             if(playerMoney > 4){
             playerMoney = playerMoney - 5;
-            playerHealth = 50;
+            playerHealth = 200;
       
             window.alert(playerName + "'s health is now at 50.  PlayerMoney is now at " + playerMoney);
             endGame();
@@ -117,9 +175,9 @@ function fight(pickedEnemy) {
             }
     
             if(storePrompt === "UPGRADE" || storePrompt === "upgrade") {
-              if(playerMoney > 20) {
-                playerMoney = playerMoney - 20;
-                playerAttack = 30;
+              if(playerMoney > 9) {
+                playerMoney = playerMoney - 10;
+                playerAttack = 50;
                 window.alert(playerName + "'s attack is now at 30.  Player's money is now at " + playerMoney);
                 endGame();
                 }
@@ -131,46 +189,10 @@ function fight(pickedEnemy) {
                 
           }
         };
+    
 
+startGame();
 
-        function endGame() {
-          var continueGame = window.prompt("Would you like to start a NEW game, visit the STORE, or END the Game? (Please enter one of the following: NEW, STORE, or END)");
-          
-          if(continueGame === "NEW" || continueGame === "new") {
-              startGame();
-          }
-        
-          else if(continueGame === "STORE" || continueGame === "store") {
-            shop();
-          }
-        
-          else {
-            break;
-          }
-        };
-
-    function startGame() {
-      
-        for(var i = 0; i < 3; i++) {
-          if(playerHealth > 0) {
-            roundNumber = (i + 1);
-           // window.alert("Welcome to Robot Gladiators! Round " + roundNumber);
-            var pickedEnemy = enemyNames[i];
-            enemyHealth = 50;
-            
-            fight(pickedEnemy);
-          }
-
-          else {
-            window.alert("You have lost your robot battle! GAME OVER! THANKS FOR PLAYING");
-            endGame();
-          }
-        }
-      };
-
-
-    function addPoints() {
-      return(playerMoney + (defeatNumber * 20));
-    };
-      
-//startGame();
+function endApp() {
+  return;
+};
