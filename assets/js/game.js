@@ -8,7 +8,7 @@
 var playerMoney = 10;
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
-var playerAttack = 10;
+var playerAttack = 25;
 var defeatNumber = 0;
 var roundNumber = 0;
 var skippedRounds = 0;
@@ -19,32 +19,36 @@ var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
+
+
 // You can also log multiple values at once like this
 
 // Alert users that they are starting the round
 
-function fight(pickedEnemy) {
-
-  function checkHealth() {
-    if (enemyHealth < 1) {
-      window.alert(pickedEnemy + " has died! " + playerName + " WINS Round " + roundNumber +  ".  Goodbye!");
-      defeatNumber = defeatNumber + 1;
-      return startGame();
-    }
-    if (playerHealth < 1) {
-      window.alert(playerName + " has died! Goodbye! End of GAME!");
-      endGame();
-    } 
-
-    return;
+/*
+function checkHealth() {
+  if (enemyHealth < 1) {
+    window.alert(pickedEnemy + " has died! " + playerName + " WINS Round " + roundNumber +  ".  Goodbye!");
+    defeatNumber = defeatNumber + 1;
   }
+  if (playerHealth < 1) {
+    window.alert(playerName + " has died! Goodbye! End of GAME!");
+    endGame();
+  } 
+
+  return;
+}
+*/
+
+
+function fight(pickedEnemy) {
 
 
         window.alert("Welcome to Robot Gladiators! This is Round " + roundNumber + ". " + "Your opponent will be "  + pickedEnemy + ".");
         
         while ([playerHealth > 0 && enemyHealth > 0]) {
 
-        var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? (Please enter 'FIGHT' or 'SKIP' to choose.)");
+        var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? (Please enter 'FIGHT' or 'SKIP' to choose. To end the game, please type 'END GAME'.)");
         
         if (promptFight === "fight" || promptFight === "FIGHT") {
 
@@ -52,7 +56,14 @@ function fight(pickedEnemy) {
           // remove enemy's health by subtracting the amount set in the playerAttack variable
           enemyHealth = enemyHealth - playerAttack;
 
-          checkHealth(pickedEnemy);
+          //checkHealth(pickedEnemy);
+
+          if (enemyHealth < 1) {
+            window.alert(pickedEnemy + " has died! " + playerName + " WINS Round " + roundNumber +  ".  Goodbye!");
+            defeatNumber = defeatNumber + 1;
+            playerMoney = playerMoney + 10;
+            return;
+          }
 
           window.alert(playerName + " attacked " + pickedEnemy + ". ");
           
@@ -63,7 +74,12 @@ function fight(pickedEnemy) {
           
           playerHealth = playerHealth - enemyAttack;
 
-          checkHealth(playerName);
+          //checkHealth(playerName);
+
+          if (playerHealth < 1) {
+            window.alert(playerName + " has died! Goodbye! End of GAME!");
+            endGame();
+          } 
 
           window.alert(pickedEnemy + " attacked " + playerName + ". ");
           
@@ -73,7 +89,7 @@ function fight(pickedEnemy) {
         
       }    
         // if player choses to skip
-        else if (promptFight === "skip" || promptFight === "SKIP") {
+        if (promptFight === "skip" || promptFight === "SKIP") {
 
                 // confirm user wants to skip
                 var confirmSkip = window.confirm("Are you sure you'd like to quit?");
@@ -87,38 +103,49 @@ function fight(pickedEnemy) {
                       console.log("PlayerMoney", playerMoney);
                       break;
                   }
-        } else {
+        } if(promptFight === "" || promptFight === undefined) {
                   window.alert("You need to pick a valid option. Try again!");
-                  
                   fight();
-            }
           }
+
+          if (promptFight === "END GAME" || promptFight === "end game") {
+
+            exit();
+        }
+      }
         };
     
-
-        function addPoints() {
-          return(playerMoney + (defeatNumber * 20));
+        function newGame() {
+          //reset player values
+          playerHealth = 100;
+          playerAttack = 10;
+          playerMoney = 10;
+          startGame();
         };
+
+    /*    function addPoints() {
+          return(playerMoney + 20);
+        };*/
           
 
         function endGame() {
-          var continueGame = window.prompt("Would you like to start a NEW game, visit the STORE, or END the Game? (Please type one of the following: NEW, STORE, or END)");
+          var continueGame = window.prompt("Would you like to RETURN to your game, start a NEW game, visit the STORE, or END the game? (Please type one of the following: RETURN, NEW, STORE, or END)");
           
+          if (continueGame === "RETURN" || continueGame === "return") {
+            return;
+          }
           if (continueGame === "STORE" || continueGame === "store") {
             shop();
-          }
-              
+          }   
           if (continueGame === "NEW" || continueGame === "new") {
-            startGame();
+            newGame();
         }
           else {
             var confirmEnd = window.confirm("Click 'OK' to END game!");
 
             if(confirmEnd) {
               window.alert("Thanks for playing.  Goodbye!");
-              
-             endApp();
-
+              exit()
             }
             else {
               endGame();
@@ -126,31 +153,30 @@ function fight(pickedEnemy) {
           }
         };
 
-
         function startGame() {
 
-          //reset player values
-    
-          playerHealth = 100;
-          playerAttack = 10;
-          playerMoney = 10;
-          
-            for(var i = 0; i < 3; i++) {
+            for(var i = 0; i < enemyNames.length; i++) {
               if(playerHealth > 0) {
+
                 roundNumber = (i + 1);
                // window.alert("Welcome to Robot Gladiators! Round " + roundNumber);
                 var pickedEnemy = enemyNames[i];
                 enemyHealth = 50;
                 
-                endGame();
-                //fight(pickedEnemy);
+                fight(pickedEnemy);
+
+                if (i < enemyNames.length - 1) {
+                  shop();
+                }
               }
     
               else {
                 window.alert("You have lost your robot battle! GAME OVER! THANKS FOR PLAYING");
                 endGame();
+                }
               }
-            }
+
+              endGame();
           };
 
 
@@ -162,37 +188,40 @@ function fight(pickedEnemy) {
             
             if(playerMoney > 4){
             playerMoney = playerMoney - 5;
-            playerHealth = 200;
+            playerHealth = playerHealth + 50;
       
-            window.alert(playerName + "'s health is now at 50.  PlayerMoney is now at " + playerMoney);
-            endGame();
+            window.alert(playerName + "'s health is now at " + playerHealth + " Player's money is now at " + playerMoney);
+            return;
             }
       
             else {
               window.alert("Insufficient funds to REFILL health.  Please LEAVE the store and play again");
-              endGame();
+              return;
               }
             }
     
             if(storePrompt === "UPGRADE" || storePrompt === "upgrade") {
               if(playerMoney > 9) {
                 playerMoney = playerMoney - 10;
-                playerAttack = 50;
-                window.alert(playerName + "'s attack is now at 30.  Player's money is now at " + playerMoney);
-                endGame();
+                playerAttack = playerAttack + 25;
+                window.alert(playerName + "'s attack is now at " + playerAttack + ". Player's money is now at " + playerMoney);
+                return;
                 }
                 
                 else {
-                  window.alert("Insufficient funds to UPGRADE attack.  Please LEAVE the store and play again or quit the game");
-                  endGame();
+                  window.alert("Insufficient funds to UPGRADE attack.  Please LEAVE the store to play again or quit the game");
+                  store();
                 }
                 
+
+            if(storePrompt === "LEAVE" || storePrompt === "leave") {
+              return;
+            }
+              else {
+                return;
+              }
           }
         };
     
 
 startGame();
-
-function endApp() {
-  return;
-};
