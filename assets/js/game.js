@@ -18,9 +18,19 @@ var fightOrSkip = function() {
   var promptFight = window.prompt("Would you like FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose. To end the game, please type 'END GAME'.)");
 
   // Enter the conditional recursive function call here!
+  promptFight = promptFight.toLowerCase();
+  
+
+  //if user wants to END GAME
+  if (promptFight === "end game") {
+    exit();
+}
+  if (promptFight === "fight")   {
+    break;
+  }
 
   // if user picks "skip" confirm and then stop the loop
-  if (promptFight === "skip" || promptFight === "SKIP") {
+  if (promptFight === "skip") {
     // confirm user wants to skip
     var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
@@ -29,15 +39,18 @@ var fightOrSkip = function() {
       window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
       // subtract money from playerMoney for skipping
       playerInfo.playerMoney = playerInfo.money - 10;
+      playerStats.skippedRounds++;
+
+      console.log("Player's money", playerInfo.money);
+
       shop();
     }
   }
-  if (promptFight === "END GAME" || promptFight === "end game") {
-    exit();
-}
   // Conditional Recursive Function Call
   if (!promptFight) {
+
     window.alert("You need to provide a valid answer! Please try again.");
+
     return fightOrSkip();
   }
 
@@ -46,15 +59,19 @@ var fightOrSkip = function() {
 function fight(enemy) {
 
 
-        window.alert("Welcome to Robot Gladiators! This is Round " + playerStats.roundNumber + ". " + "Your opponent will be "  + enemy + ".");
+        //window.alert("Welcome to Robot Gladiators! This is Round " + playerStats.roundNumber + ". " + "Your opponent will be "  + enemy + ".");
         
         while ([playerInfo.health > 0 && enemy.health > 0]) {
 
-        var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? (Please enter 'FIGHT' or 'SKIP' to choose. To end the game, please type 'END GAME'.)");
+          if (fightOrSkip()) {
+            // if true, leave fight by breaking loop
+            break;
+          }
+
+        //var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? (Please enter 'FIGHT' or 'SKIP' to choose. To end the game, please type 'END GAME'.)");
         
 
-
-        if (promptFight === "fight" || promptFight === "FIGHT") {
+        //if (promptFight === "fight" || promptFight === "FIGHT") {
 
                 
           // remove enemy's health by subtracting the amount from player's attack
@@ -91,15 +108,16 @@ function fight(enemy) {
           
           console.log(enemy + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining.");
         
-      }    
+      } 
+    };   
         // if player choses to skip
-        if (promptFight === "skip" || promptFight === "SKIP") {
+       // if (promptFight === "skip" || promptFight === "SKIP") {
 
                 // confirm user wants to skip
-                var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+            //    var confirmSkip = window.confirm("Are you sure you'd like to quit?");
         
                   // if yes (true), leave fight
-                if (confirmSkip) {
+              /*  if (confirmSkip) {
                       window.alert(playerInfo.name + " has decided to skip this fight.");
                       // subtract money from playerInfo.money for skipping
                       playerInfo.money = playerInfo.money - 10;
@@ -107,42 +125,36 @@ function fight(enemy) {
                       console.log("Player's money", playerInfo.money);
                       break;
                   }
-        } if(promptFight === "" || promptFight === undefined) {
+         if(promptFight === "" || promptFight === undefined) {
                   window.alert("You need to pick a valid option. Try again!");
                   fight();
-          }
-
-          
-      }
-        };
+          } */
+  
+      
+        
     
         // function to generate a random numeric value
         var randomNumber = function(min, max) {
+
           var value = Math.floor(Math.random() * (max - min + 1) + min);
         
           return value;
         };
 
-/*        function newGame() {
-          //reset player values
-          playerInfo.health = 100;
-          playerInfo.attack = 10;
-          playerInfo.money = 10;
-          startGame();
-        };
-*/
-          
+         
 
         function endGame() {
           var continueGame = window.prompt("Would you like to RETURN to your game, start a NEW game, visit the STORE, or END the game? (Please type one of the following: RETURN, NEW, STORE, or END)");
-          
-          if (continueGame === "RETURN" || continueGame === "return") {
+
+          continueGame = continueGame.toLowerCase();
+
+          if (continueGame === "return") {
             return;
           }
-          if (continueGame === "STORE" || continueGame === "store") {
+          if (continueGame === "store") {
             shop();
           }   
-          if (continueGame === "NEW" || continueGame === "new") {
+          if (continueGame === "new") {
             newGame();
         }
           else {
@@ -152,7 +164,7 @@ function fight(enemy) {
               window.alert("Thanks for playing.  Goodbye!");
               exit()
             }
-            else {
+            if(!confirmEnd) {
               endGame();
             }
           }
@@ -206,12 +218,13 @@ var enemyInfo = [
   name: "Robo Trumble",
   attack: randomNumber(10, 14)
 }
-],
-        
+]
+
+      
 // generate random damage value based on player's attack power
-var damage = randomNumber(enemy.attack - 3, enemy.attack);
+var damage = randomNumber(enemy.attack - 3, enemy.attack),
         
-enemy.health = randomNumber(40, 60);
+enemy.health = randomNumber(40, 60),
 
         function startGame() {
           playerInfo.reset();
@@ -245,8 +258,9 @@ enemy.health = randomNumber(40, 60);
         function shop() {
 
           var storePrompt = window.prompt("Would you like to REFILL your health (5pts), UPGRADE your attack (10pts), or LEAVE the store?  Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
-      
-          if(storePrompt === "REFILL" || storePrompt === "refill") {
+          storePrompt = storePrompt.toLowerCase();
+
+          if(storePrompt === "refill") {
             
             if(playerInfo.money > 4){
             playerInfo.money = playerInfo.money - 7;
@@ -262,7 +276,7 @@ enemy.health = randomNumber(40, 60);
               }
             }
     
-            if(storePrompt === "UPGRADE" || storePrompt === "upgrade") {
+            if(storePrompt === "upgrade") {
               if(playerInfo.money > 9) {
                 playerInfo.money = Math.max(0, playerInfo.money - 10);
                 playerInfo.attack = playerInfo.attack + 25;
@@ -276,7 +290,7 @@ enemy.health = randomNumber(40, 60);
                 }
                 
 
-            if(storePrompt === "LEAVE" || storePrompt === "leave") {
+            if(storePrompt === "leave") {
               return;
             }
               else {
