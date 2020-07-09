@@ -43,6 +43,7 @@ function checkHealth() {
 
 function fight(pickedEnemy) {
 
+  
 
         window.alert("Welcome to Robot Gladiators! This is Round " + roundNumber + ". " + "Your opponent will be "  + pickedEnemy + ".");
         
