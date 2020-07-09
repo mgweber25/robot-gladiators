@@ -168,9 +168,9 @@ function fight(pickedEnemy) {
         }
       };
 
-      
+
     function addPoints() {
       return(playerMoney + (defeatNumber * 20));
     };
       
-startGame();
+//startGame();
