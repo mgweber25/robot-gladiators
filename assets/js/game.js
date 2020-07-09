@@ -54,7 +54,7 @@ function fight(pickedEnemy) {
 
                 
           // remove enemy's health by subtracting the amount set in the playerAttack variable
-          enemyHealth = enemyHealth - playerAttack;
+          enemyHealth = Math.max(0, enemyHealth - playerAttack);
 
           //checkHealth(pickedEnemy);
 
